@@ -68,13 +68,9 @@ const columns = [
     header: 'Stock Quantity',
     cell: ({ getValue }) => {
       const stockQuantity = getValue()
-      const stockColors = {
-        in_stock: 'bg-green-100 text-green-800',
-        out_of_stock: 'bg-red-100 text-red-800',
-        discontinued: 'bg-gray-100 text-gray-800',
-      }
+
       return h('span', {
-        class: `inline-flex px-2 py-1 text-xs font-semibold rounded-full ${stockColors[stockQuantity > 0 ? 'in_stock' : 'out_of_stock']}`,
+        class: `${stockQuantity < 10 ? 'text-red-600 font-bold' : 'text-gray-900'}`,
       }, stockQuantity)
     },
   }),
@@ -161,7 +157,7 @@ const saveProduct = () => {
         }
       }
     } else {
-      // Add new user
+      // Add new product
       const newProduct: Product = {
         id: Math.max(...products.value.map(u => u.id)) + 1,
         name: productForm.name,
@@ -276,7 +272,7 @@ const cancelForm = () => {
     </div>
 
     <!-- Delete Confirmation Dialog -->
-    <ConfirmActionDialog v-model:open="showDeleteDialog" title="Delete User"
+    <ConfirmActionDialog v-model:open="showDeleteDialog" title="Delete Product"
       :description="`Are you sure you want to delete ${productToDelete?.name}? This action cannot be undone.`"
       action-variant="destructive" @continue-action="deleteProduct" @cancel-action="cancelDelete" />
   </div>
