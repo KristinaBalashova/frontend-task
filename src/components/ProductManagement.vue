@@ -143,19 +143,27 @@ const saveProduct = () => {
 
   // Simulate API call
   setTimeout(() => {
+
+    
     if (isEditing.value && editingProduct.value) {
       // Update existing product
+
       const index = products.value.findIndex(u => u.id === editingProduct.value!.id)
-      if (index !== -1) {
-        products.value[index] = {
-          ...editingProduct.value,
-          name: productForm.name,
-          category: productForm.category,
-          price: productForm.price,
-          stockQuantity: productForm.stockQuantity,
-          status: productForm.status,
+
+      products.value = products.value.map((p) => {
+        if (p.id === editingProduct.value!.id) {
+          return {
+            ...p,
+            name: productForm.name,
+            category: productForm.category,
+            price: productForm.price,
+            stockQuantity: productForm.stockQuantity,
+            status: productForm.status,
+          }
         }
-      }
+        return p
+      })
+      
     } else {
       // Add new product
       const newProduct: Product = {
@@ -166,7 +174,7 @@ const saveProduct = () => {
         stockQuantity: productForm.stockQuantity,
         status: productForm.status,
       }
-      products.value.push(newProduct)
+      products.value = [...products.value, newProduct]
     }
 
     loading.value = false
