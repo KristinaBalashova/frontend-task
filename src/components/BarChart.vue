@@ -9,6 +9,7 @@ import {
   CategoryScale,
   LinearScale,
 } from "chart.js";
+import { computed } from "vue";
 
 
 ChartJS.register(
@@ -27,10 +28,10 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const chartData = {
+const chartData = computed(() => ({
     labels: props.labels,
     datasets: props.datasets
-}
+}));
 
 const chartOptions = {
   responsive: true,
