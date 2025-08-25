@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, computed } from "vue";
 import DataCard from "./DataCard.vue";
+import BarChart from "./BarChart.vue";
 import {
   FaceIcon,
   CubeIcon,
@@ -48,6 +49,9 @@ const fetchData = () => {
   }, 1000);
 };
 
+const chartLabels = computed(() => analyticsData.revenueByMonth.map(item => item.month));
+const chartDatasets = computed(() => [{ data: analyticsData.revenueByMonth.map(item => item.revenue) }]);
+
 onMounted(() => {
   fetchData();
   setInterval(() => {
@@ -78,6 +82,11 @@ onMounted(() => {
       <DataCard title="Active Sessions" :value="analyticsData.activeSessions" :loading="loading">
         <template #icon><RocketIcon /></template>
       </DataCard>
+    </div>
+    <div>
+        <h3 class="text-lg font-semibold text-gray-900">Revenue by Month</h3>
+        <div v-if="loading" class="text-center text-gray-500">Loading Chart...</div>
+        <BarChart v-else :labels="chartLabels" :datasets="chartDatasets" />
     </div>
   </div>
 </template>
