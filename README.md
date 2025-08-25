@@ -9,6 +9,22 @@
 - TypeScript interfaces and type safety
 - Responsive design with Tailwind CSS
 
+### 🛒 Product Management
+- Complete CRUD operations for products
+- Data table displaying product name, category, price, stock quantity, status, and actions
+- Add/Edit product modal forms with validation
+- Delete confirmation dialogs
+
+
+### 📊 Analytics Dashboard
+- Dashboard component with analytics cards:
+  - Total Users
+  - Total Products
+  - Total Revenue
+  - Active Sessions
+- Simple bar chart showing monthly revenue
+- Real-time updates simulation (every 5 seconds)
+
 ## Technology Stack
 
 - **Vue.js 3** - Progressive JavaScript framework
@@ -18,6 +34,7 @@
 - **@tanstack/vue-table** - Powerful table component
 - **Reka UI** - Accessible component library
 - **Class Variance Authority** - Component variant management
+- **Vue-chartjs + ChartJS** - For BarChart
 
 ## Getting Started
 
