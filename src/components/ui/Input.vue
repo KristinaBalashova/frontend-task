@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
   type: 'text',
 })
 
-const model = defineModel<string>()
+const model = defineModel<string | number>()
 </script>
 
 <template>
