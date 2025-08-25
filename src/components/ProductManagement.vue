@@ -6,6 +6,7 @@ import Button from './ui/Button.vue'
 import Input from './ui/Input.vue'
 import Label from './ui/Label.vue'
 import ConfirmActionDialog from './ConfirmActionDialog.vue'
+import { formatPrice } from '../lib/utils.ts'
 
 // Types
 interface Product {
@@ -44,12 +45,6 @@ const productForm = reactive({
 // Table setup
 const columnHelper = createColumnHelper<Product>()
 
-const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-    }).format(price)
-}
 
 const columns = [
   columnHelper.accessor('name', {

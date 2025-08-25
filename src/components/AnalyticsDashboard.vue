@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed } from "vue";
+import { ref, reactive, onMounted, computed, onUnmounted } from "vue";
 import DataCard from "./DataCard.vue";
 import BarChart from "./BarChart.vue";
 import {
@@ -8,6 +8,7 @@ import {
   StarIcon,
   RocketIcon,
 } from "@radix-icons/vue";
+import { formatPrice } from '../lib/utils.ts'
 
 // Types
 interface AnalyticsData {
@@ -52,12 +53,19 @@ const fetchData = () => {
 const chartLabels = computed(() => analyticsData.revenueByMonth.map(item => item.month));
 const chartDatasets = computed(() => [{ data: analyticsData.revenueByMonth.map(item => item.revenue) }]);
 
+let intervalId: number;
+
 onMounted(() => {
   fetchData();
-  setInterval(() => {
+  intervalId = setInterval(() => {
     fetchData();
   }, 5000);
 });
+
+onUnmounted(() => {
+  clearInterval(intervalId);
+});
+
 </script>
 
 <template>
@@ -76,7 +84,7 @@ onMounted(() => {
       <DataCard title="Total Products" :value="analyticsData.totalProducts" :loading="loading">
         <template #icon><CubeIcon /></template>
       </DataCard>
-      <DataCard title="Total Revenue" :value="analyticsData.totalRevenue" :loading="loading">
+      <DataCard title="Total Revenue" :value="formatPrice(analyticsData.totalRevenue)" :loading="loading">
         <template #icon><StarIcon /></template>
       </DataCard>
       <DataCard title="Active Sessions" :value="analyticsData.activeSessions" :loading="loading">
