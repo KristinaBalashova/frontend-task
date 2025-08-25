@@ -2,7 +2,7 @@
 
 const props = defineProps<{
   title: string;
-  value: number;
+  value: number | string;
   loading: boolean;
 }>();
 
@@ -17,6 +17,6 @@ const props = defineProps<{
   >
     <slot name="icon"></slot>
     <h3 class="text-lg font-semibold text-gray-900">{{ title }}</h3>
-    <p v-if="!loading" class="text-gray-500">${{ value?.toLocaleString() }}</p>
+    <p v-if="!loading" class="text-gray-500">{{ value?.toLocaleString() }}</p>
   </div>
 </template>
